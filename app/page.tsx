@@ -1,13 +1,5 @@
-import {
-  BrandStatementSection,
-  OpeningSection,
-} from "./home-sections";
+import HomePage from "./HomePage";
 
 export default function Home() {
-  return (
-    <main>
-      <OpeningSection />
-      <BrandStatementSection />
-    </main>
-  );
+  return <HomePage />;
 }
