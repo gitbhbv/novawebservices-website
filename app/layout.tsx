@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import MobileMenuBehavior from "./MobileMenuBehavior";
 import "./globals.css";
+import "./nova-one-page.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,15 +21,18 @@ export const metadata: Metadata = {
     template: "%s | NOVA Web Services",
   },
   description:
-    "Modern, mobile-first websites for local and growing businesses. Custom web design, business integrations, and ongoing website care.",
+    "Affordable, professional websites for small businesses, with custom design, business integrations, and on-demand website updates.",
   other: {
     "codex-preview": "development",
   },
 };
 
 const navItems = [
-  ["Home", "/"],
-  ["Pricing", "/pricing"],
+  ["Why NOVA", "/#why-nova"],
+  ["Work", "/#work"],
+  ["Packages", "/#packages"],
+  ["Maintenance", "/#maintenance"],
+  ["FAQ", "/#faq"],
 ];
 
 function Brand() {
@@ -82,7 +86,7 @@ function SiteFooter() {
           <div>
             <h2>Let&apos;s make your business look as good online as it does in real life.</h2>
           </div>
-          <Link className="footer-cta" href="/start" aria-label="Start a Project">
+          <Link className="footer-cta" href="/#get-started" aria-label="Start a Project">
             <strong>Start a Project</strong>
             <b aria-hidden="true">↗</b>
           </Link>
@@ -92,15 +96,17 @@ function SiteFooter() {
           <div className="footer-brand-block">
             <Brand />
             <p className="footer-tagline">
-              Purposeful websites for local and growing businesses.
+              Professional websites for small businesses, made more accessible.
             </p>
           </div>
           <div className="footer-links">
             <nav aria-label="Footer navigation">
               <span>Explore</span>
-              <Link href="/">Home</Link>
-              <Link href="/pricing">Pricing</Link>
-              <Link href="/start">Start a Project</Link>
+              <Link href="/#why-nova">Why NOVA</Link>
+              <Link href="/#work">Work</Link>
+              <Link href="/#packages">Packages</Link>
+              <Link href="/#maintenance">Maintenance</Link>
+              <Link href="/#get-started">Start a Project</Link>
             </nav>
             <nav aria-label="Legal navigation">
               <span>Legal</span>
