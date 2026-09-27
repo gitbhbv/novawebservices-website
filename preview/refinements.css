@@ -45,6 +45,7 @@
 }
 
 .popular .includes { color: #a89dae; }
+.price-card.popular li { color: #c7becd; }
 
 .price-card {
   min-height: 690px;
