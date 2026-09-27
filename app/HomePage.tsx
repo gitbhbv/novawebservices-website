@@ -7,40 +7,45 @@ const packages = [
   {
     name: "Essential",
     price: "$99",
-    tagline: "A polished one-page presence for your business.",
+    tagline: "Simple one-page professional website.",
     popular: false,
     features: [
-      "One-page custom website",
-      "Mobile, tablet, and desktop responsive design",
-      "About, services, contact, and key business details",
-      "Gallery, testimonials, or FAQ where appropriate",
-      "Basic SEO and domain connection",
+      "Mobile responsive design",
+      "Hero and call to action",
+      "About and services sections",
+      "Contact information",
+      "Gallery, testimonials, and FAQ",
+      "Basic contact form",
+      "Basic SEO",
+      "Domain connection",
     ],
   },
   {
     name: "Pro",
     price: "$199",
-    tagline: "A complete informational website built around your business.",
+    tagline: "Complete informational multi-page business website.",
     popular: true,
     features: [
-      "Multi-page business website",
-      "Everything included with Essential",
-      "Dedicated pages such as Home, About, Services, and Contact",
-      "Standard forms and stronger content organization",
-      "Responsive design, basic SEO, and launch setup",
+      "Home, About, Services, and Contact pages",
+      "Other informational pages as needed",
+      "Standard forms",
+      "Mobile responsive design",
+      "Basic SEO",
+      "Launch setup",
     ],
   },
   {
     name: "Ultimate",
     price: "$299",
-    tagline: "A complete website connected to the tools that help run your business.",
+    tagline: "Complete website plus reasonable standard third-party integrations.",
     popular: false,
     features: [
-      "Everything included with Pro",
-      "Standard third-party business integrations",
-      "Booking, questionnaires, hosted payments, or CMS tools",
-      "Email, CRM, external forms, and similar connected services",
-      "Integration setup and functional testing",
+      "Tally, Jotform, or Typeform",
+      "Calendly, Acuity, or Booksy",
+      "Square Appointments",
+      "Hosted Stripe, Square, or PayPal checkout",
+      "CRM and email tools",
+      "CMS integrations",
     ],
   },
 ] as const;
@@ -249,6 +254,7 @@ export default function HomePage() {
                   <div className="nova-package-price">{pkg.price}</div>
                   <p>{pkg.tagline}</p>
                 </div>
+                <span className="nova-includes-label">Can include</span>
                 <ul>
                   {pkg.features.map((feature) => <li key={feature}>{feature}</li>)}
                 </ul>
@@ -257,6 +263,23 @@ export default function HomePage() {
                 </button>
               </article>
             ))}
+          </div>
+          <div className="nova-classification" data-reveal>
+            <div>
+              <span className="nova-classification-label">The NOVA standard</span>
+              <h3>The simplest reliable solution wins.</h3>
+              <p>We do not classify a project as custom just because custom development is possible.</p>
+            </div>
+            <div className="nova-classification-options">
+              <article>
+                <span>Usually Ultimate</span>
+                <p>An established third-party service owns the logic and data, and NOVA connects it to your site.</p>
+              </article>
+              <article>
+                <span>Usually Super Nova</span>
+                <p>NOVA builds or manages the application logic, data, workflow, or backend.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -270,10 +293,11 @@ export default function HomePage() {
             <p className="nova-supernova-price">Custom Quote</p>
           </div>
           <div className="nova-supernova-copy" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            <p>For advanced websites and custom web applications built around your business.</p>
+            <p>For advanced functionality and custom web applications built around your business.</p>
             <div className="nova-supernova-tags">
-              <span>Customer accounts</span><span>Databases</span><span>Dashboards</span><span>Memberships</span><span>Custom booking</span><span>API-driven features</span><span>Advanced automation</span>
+              <span>Customer accounts</span><span>Login and authentication</span><span>Databases</span><span>Dashboards</span><span>Memberships</span><span>Gated content</span><span>Native booking</span><span>Custom payments and ordering</span><span>API-driven features</span><span>Advanced automation</span><span>File uploads</span><span>Custom backend logic</span><span>Dynamic web applications</span>
             </div>
+            <p className="nova-supernova-rule">When NOVA builds and manages the application logic or data, the project usually falls under Super Nova.</p>
             <button className="nova-btn nova-btn-light" type="button" onClick={() => launchWith("Super Nova")}>🚀 Launch with Super Nova</button>
           </div>
         </div>
@@ -292,9 +316,10 @@ export default function HomePage() {
               <div className="nova-maintenance-price">$9.99</div>
               <p>Simple content and information changes using the website you already have.</p>
               <ul>
-                <li>Phone, email, hours, address, or text</li>
-                <li>Pricing, service descriptions, images, and links</li>
-                <li>Testimonials, FAQs, and basic content edits</li>
+                <li>Phone, email, address, hours, text, or pricing</li>
+                <li>Services, images, logos, testimonials, or FAQs</li>
+                <li>Social, booking, payment, and broken links</li>
+                <li>Simple form text or field edits</li>
               </ul>
               <div className="nova-cms-note">Prefer to make routine content updates yourself? Ask about a CMS setup.</div>
             </article>
@@ -305,7 +330,8 @@ export default function HomePage() {
               <ul>
                 <li>Layout, responsive, CSS, or animation changes</li>
                 <li>Integration, form, booking, or payment troubleshooting</li>
-                <li>Code fixes, performance, DNS, SSL, or restoration work</li>
+                <li>Performance and technical SEO</li>
+                <li>DNS, domain, SSL, restoration, or code issues</li>
               </ul>
             </article>
             <article className="nova-maintenance-card" data-reveal style={{ "--reveal-delay": "220ms" } as CSSProperties}>
@@ -313,12 +339,14 @@ export default function HomePage() {
               <div className="nova-maintenance-price nova-maintenance-custom">Custom Quote</div>
               <p>For requests that materially expand what the website was originally built to do.</p>
               <ul>
-                <li>New systems or integrations</li>
-                <li>Major redesigns or new workflows</li>
-                <li>New custom features and functionality</li>
+                <li>E-commerce, booking systems, or memberships</li>
+                <li>Accounts, databases, dashboards, or APIs</li>
+                <li>Major redesigns and new business workflows</li>
+                <li>Advanced custom functionality</li>
               </ul>
             </article>
           </div>
+          <p className="nova-maintenance-rule" data-reveal>Maintenance pricing is based on the most complex part of the request, not the website package originally purchased.</p>
         </div>
       </section>
 
@@ -340,7 +368,7 @@ export default function HomePage() {
             <label><span>Email Address</span><input name="email" type="email" autoComplete="email" required maxLength={160} /></label>
             <button type="submit" disabled={leadState === "submitting"}>{leadState === "submitting" ? "Saving…" : "Save & continue to questionnaire"}<span aria-hidden="true">↗</span></button>
             <p className={`nova-lead-status${leadState === "error" ? " is-error" : ""}`} role={leadState === "error" ? "alert" : "status"}>{leadMessage}</p>
-            <small>By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
+            <small>Your package selection is a preference, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire. By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
           </form>
         </div>
       </section>

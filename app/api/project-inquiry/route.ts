@@ -7,6 +7,7 @@ type InquiryPayload = {
   projectType?: unknown;
   timeline?: unknown;
   details?: unknown;
+  selectedPackage?: unknown;
   companyWebsite?: unknown;
   startedAt?: unknown;
 };
@@ -70,6 +71,7 @@ export async function POST(request: Request) {
   const projectType = clean(payload.projectType, 60);
   const timeline = clean(payload.timeline, 60);
   const details = clean(payload.details, 3000);
+  const selectedPackage = clean(payload.selectedPackage, 40) || "Not selected";
   const honeypot = clean(payload.companyWebsite, 200);
   const startedAt = typeof payload.startedAt === "number" ? payload.startedAt : 0;
 
@@ -81,7 +83,7 @@ export async function POST(request: Request) {
     return json("Please take a moment to review your details, then try again.", 400);
   }
 
-  if (!name || !business || !projectType || details.length < 20 || !EMAIL_PATTERN.test(email)) {
+  if (!name || !business || !EMAIL_PATTERN.test(email)) {
     return json("Please complete all required fields with valid information.", 400);
   }
 
@@ -102,9 +104,10 @@ export async function POST(request: Request) {
     ["Name", name],
     ["Business", business],
     ["Email", email],
+    ["Package preference", selectedPackage],
     ["Phone", phone || "Not provided"],
     ["Current website", website || "Not provided"],
-    ["Project type", projectType],
+    ["Project type", projectType || "Continues in Tally questionnaire"],
     ["Ideal timeline", timeline || "No firm timeline"],
   ];
 
@@ -120,8 +123,7 @@ export async function POST(request: Request) {
     "",
     ...rows.map(([label, value]) => `${label}: ${value}`),
     "",
-    "Project details:",
-    details,
+    ...(details ? ["Project details:", details] : ["Next step: Full Tally questionnaire"]),
   ].join("\n");
 
   const safeBusinessForSubject = business.replace(/[\r\n]+/g, " ");
@@ -138,8 +140,7 @@ export async function POST(request: Request) {
             <p style="margin:0 0 8px;color:#7638dd;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">NOVA Web Services</p>
             <h1 style="margin:0 0 24px;font-size:28px;line-height:1.15">New project inquiry</h1>
             <table style="width:100%;border-collapse:collapse;border-top:1px solid #ddd6e2;border-bottom:1px solid #ddd6e2">${htmlRows}</table>
-            <h2 style="margin:28px 0 10px;font-size:18px">Project details</h2>
-            <p style="margin:0;white-space:pre-wrap;line-height:1.65;color:#3e3942">${escapeHtml(details)}</p>
+            ${details ? `<h2 style="margin:28px 0 10px;font-size:18px">Project details</h2><p style="margin:0;white-space:pre-wrap;line-height:1.65;color:#3e3942">${escapeHtml(details)}</p>` : `<p style="margin:28px 0 0;color:#6f6974">The client is continuing to the full Tally questionnaire.</p>`}
             <p style="margin:30px 0 0;color:#6f6974;font-size:12px">Reply to this email to respond directly to ${escapeHtml(name)}.</p>
           </div>
         `,

@@ -60,6 +60,10 @@ function SiteHeader() {
           ))}
         </nav>
 
+        <Link className="header-quote desktop-quote" href="/#get-started">
+          Get Started <span aria-hidden="true">↗</span>
+        </Link>
+
         <details className="mobile-menu">
           <summary aria-label="Open navigation menu">
             <span />
@@ -71,6 +75,7 @@ function SiteHeader() {
                 {label}
               </Link>
             ))}
+            <Link href="/#get-started">Get Started</Link>
           </nav>
         </details>
       </div>

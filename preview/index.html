@@ -4,14 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#09080b" />
-  <title>NOVA Web Services — One Page Revamp Preview</title>
+  <title>NOVA Web Services | One-Page Revamp Preview</title>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./refinements.css" />
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#home"><span class="brand-mark">✦</span><span>NOVA Web Services</span></a>
     <nav><a href="#why-nova">Why NOVA</a><a href="#work">Work</a><a href="#packages">Packages</a><a href="#maintenance">Maintenance</a><a href="#faq">FAQ</a></nav>
-    <a class="header-cta" href="#get-started">Start a Project</a>
+    <details class="mobile-nav"><summary>Menu</summary><nav><a href="#why-nova">Why NOVA</a><a href="#work">Work</a><a href="#packages">Packages</a><a href="#maintenance">Maintenance</a><a href="#faq">FAQ</a><a href="#get-started">Get Started</a></nav></details>
+    <a class="header-cta" href="#get-started">Get Started</a>
   </header>
 
   <main>
@@ -55,17 +57,18 @@
       <div class="container">
         <div class="heading centered" data-reveal><span class="kicker">Website Packages</span><h2>Choose a starting point.</h2><p>You don’t need to know the technical answer. We’ll confirm the right package after reviewing what your website actually needs.</p></div>
         <div class="card-grid">
-          <article class="price-card" data-reveal><h3>Essential</h3><div class="price">$99</div><p>A polished one-page presence for your business.</p><ul><li>One-page custom website</li><li>Mobile, tablet, and desktop responsive design</li><li>About, services, contact, and key business details</li><li>Gallery, testimonials, or FAQ where appropriate</li><li>Basic SEO and domain connection</li></ul><button data-package="Essential">🚀 Launch with Essential</button></article>
-          <article class="price-card popular" data-reveal style="--delay:110ms"><span class="popular-pill">Most Popular</span><h3>Pro</h3><div class="price">$199</div><p>A complete informational website built around your business.</p><ul><li>Multi-page business website</li><li>Everything included with Essential</li><li>Dedicated pages such as Home, About, Services, and Contact</li><li>Standard forms and stronger content organization</li><li>Responsive design, basic SEO, and launch setup</li></ul><button data-package="Pro">🚀 Launch with Pro</button></article>
-          <article class="price-card" data-reveal style="--delay:220ms"><h3>Ultimate</h3><div class="price">$299</div><p>A complete website connected to the tools that help run your business.</p><ul><li>Everything included with Pro</li><li>Standard third-party business integrations</li><li>Booking, questionnaires, hosted payments, or CMS tools</li><li>Email, CRM, external forms, and similar connected services</li><li>Integration setup and functional testing</li></ul><button data-package="Ultimate">🚀 Launch with Ultimate</button></article>
+          <article class="price-card" data-reveal><h3>Essential</h3><div class="price">$99</div><p>Simple one-page professional website.</p><small class="includes">Can include</small><ul><li>Mobile responsive design</li><li>Hero and call to action</li><li>About and services sections</li><li>Contact information</li><li>Gallery, testimonials, and FAQ</li><li>Basic contact form</li><li>Basic SEO</li><li>Domain connection</li></ul><button data-package="Essential">🚀 Launch with Essential</button></article>
+          <article class="price-card popular" data-reveal style="--delay:110ms"><span class="popular-pill">Most Popular</span><h3>Pro</h3><div class="price">$199</div><p>Complete informational multi-page business website.</p><small class="includes">Can include</small><ul><li>Home, About, Services, and Contact pages</li><li>Other informational pages as needed</li><li>Standard forms</li><li>Mobile responsive design</li><li>Basic SEO</li><li>Launch setup</li></ul><button data-package="Pro">🚀 Launch with Pro</button></article>
+          <article class="price-card" data-reveal style="--delay:220ms"><h3>Ultimate</h3><div class="price">$299</div><p>Complete website plus reasonable standard third-party integrations.</p><small class="includes">Can include</small><ul><li>Tally, Jotform, or Typeform</li><li>Calendly, Acuity, or Booksy</li><li>Square Appointments</li><li>Hosted Stripe, Square, or PayPal checkout</li><li>CRM and email tools</li><li>CMS integrations</li></ul><button data-package="Ultimate">🚀 Launch with Ultimate</button></article>
         </div>
+        <div class="classification" data-reveal><div><span class="kicker">The NOVA standard</span><h3>The simplest reliable solution wins.</h3><p>We do not classify a project as custom just because custom development is possible.</p></div><div class="classification-options"><article><strong>Usually Ultimate</strong><p>An established third-party service owns the logic and data, and NOVA connects it to your site.</p></article><article><strong>Usually Super Nova</strong><p>NOVA builds or manages the application logic, data, workflow, or backend.</p></article></div></div>
       </div>
     </section>
 
     <section class="dark supernova section-pad">
       <div class="container split super-grid">
         <div data-reveal><span class="kicker dark-kicker">Beyond the standard packages</span><h2>Super Nova</h2><p class="custom-label">Custom Quote</p></div>
-        <div class="super-copy" data-reveal style="--delay:100ms"><p>For advanced websites and custom web applications built around your business.</p><div class="tags"><span>Customer accounts</span><span>Databases</span><span>Dashboards</span><span>Memberships</span><span>Custom booking</span><span>API-driven features</span><span>Advanced automation</span></div><button class="btn light-button" data-package="Super Nova">🚀 Launch with Super Nova</button></div>
+        <div class="super-copy" data-reveal style="--delay:100ms"><p>For advanced functionality and custom web applications built around your business.</p><div class="tags"><span>Customer accounts</span><span>Login and authentication</span><span>Databases</span><span>Dashboards</span><span>Memberships</span><span>Gated content</span><span>Native booking</span><span>Custom payments and ordering</span><span>API-driven features</span><span>Advanced automation</span><span>File uploads</span><span>Custom backend logic</span><span>Dynamic web applications</span></div><p class="super-rule">When NOVA builds and manages the application logic or data, the project usually falls under Super Nova.</p><button class="btn light-button" data-package="Super Nova">🚀 Launch with Super Nova</button></div>
       </div>
     </section>
 
@@ -73,10 +76,11 @@
       <div class="container">
         <div class="heading" data-reveal><span class="kicker">On-Demand Website Updates</span><h2>Pay for the update you actually need.</h2><p>Maintenance is available when you request a change or let us know about an issue. Pricing is based on the complexity of the requested work.</p></div>
         <div class="maintenance-grid">
-          <article class="maintenance-card" data-reveal><span class="level">Routine Update</span><div class="maintenance-price">$9.99</div><p>Simple content and information changes using the website you already have.</p><ul><li>Phone, email, hours, address, or text</li><li>Pricing, service descriptions, images, and links</li><li>Testimonials, FAQs, and basic content edits</li></ul><div class="cms-note">Prefer to make routine content updates yourself? Ask about a CMS setup.</div></article>
-          <article class="maintenance-card technical" data-reveal style="--delay:110ms"><span class="level">Technical Update</span><div class="maintenance-price">$29.99</div><p>Requested changes or fixes that require code, troubleshooting, or technical adjustments.</p><ul><li>Layout, responsive, CSS, or animation changes</li><li>Integration, form, booking, or payment troubleshooting</li><li>Code fixes, performance, DNS, SSL, or restoration work</li></ul></article>
-          <article class="maintenance-card" data-reveal style="--delay:220ms"><span class="level">New Development</span><div class="maintenance-price custom-price">Custom Quote</div><p>For requests that materially expand what the website was originally built to do.</p><ul><li>New systems or integrations</li><li>Major redesigns or new workflows</li><li>New custom features and functionality</li></ul></article>
+          <article class="maintenance-card" data-reveal><span class="level">Routine Update</span><div class="maintenance-price">$9.99</div><p>Simple content and information changes using the website you already have.</p><ul><li>Phone, email, address, hours, text, or pricing</li><li>Services, images, logos, testimonials, or FAQs</li><li>Social, booking, payment, and broken links</li><li>Simple form text or field edits</li></ul><div class="cms-note">Prefer to make routine content updates yourself? Ask about a CMS setup.</div></article>
+          <article class="maintenance-card technical" data-reveal style="--delay:110ms"><span class="level">Technical Update</span><div class="maintenance-price">$29.99</div><p>Requested changes or fixes that require code, troubleshooting, or technical adjustments.</p><ul><li>Layout, responsive, CSS, or animation changes</li><li>Integration, form, booking, or payment troubleshooting</li><li>Performance and technical SEO</li><li>DNS, domain, SSL, restoration, or code issues</li></ul></article>
+          <article class="maintenance-card" data-reveal style="--delay:220ms"><span class="level">New Development</span><div class="maintenance-price custom-price">Custom Quote</div><p>For requests that materially expand what the website was originally built to do.</p><ul><li>E-commerce, booking systems, or memberships</li><li>Accounts, databases, dashboards, or APIs</li><li>Major redesigns and new business workflows</li><li>Advanced custom functionality</li></ul></article>
         </div>
+        <p class="maintenance-rule" data-reveal>Maintenance pricing is based on the most complex part of the request, not the website package originally purchased.</p>
       </div>
     </section>
 
@@ -84,7 +88,7 @@
       <div class="stars"></div>
       <div class="container split start-grid">
         <div data-reveal><span class="kicker dark-kicker">Start Your Project</span><h2>Tell us who we’re building for.</h2><p class="start-lede">Start with three quick details, then continue to the full project questionnaire.</p><div id="selected-package" class="selected-package" hidden>Selected package: <strong></strong></div></div>
-        <form id="lead-form" class="lead-form" data-reveal style="--delay:100ms"><label>Name<input name="name" autocomplete="name" required></label><label>Business Name<input name="business" autocomplete="organization" required></label><label>Email Address<input name="email" type="email" autocomplete="email" required></label><button type="submit">Save &amp; continue to questionnaire <span>↗</span></button><small>This preview continues to the existing NOVA questionnaire.</small></form>
+        <form id="lead-form" class="lead-form" data-reveal style="--delay:100ms"><label>Name<input name="name" autocomplete="name" required></label><label>Business Name<input name="business" autocomplete="organization" required></label><label>Email Address<input name="email" type="email" autocomplete="email" required></label><button type="submit">Save &amp; continue to questionnaire <span>↗</span></button><small>Your package selection is a preference, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire.</small></form>
       </div>
     </section>
 
