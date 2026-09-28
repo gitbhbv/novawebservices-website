@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+/* eslint-disable @next/next/no-img-element */
+
 import { FormEvent, useEffect, useRef, useState, type CSSProperties } from "react";
 
 const packages = [
@@ -10,7 +10,6 @@ const packages = [
     emoji: "✨",
     price: "$99",
     tagline: "Simple one-page professional website.",
-    popular: false,
     features: [
       "Mobile responsive design",
       "Hero and call to action",
@@ -42,7 +41,6 @@ const packages = [
     emoji: "💎",
     price: "$299",
     tagline: "Complete website plus standard third-party integrations.",
-    popular: false,
     features: [
       "Tally, Jotform, or Typeform",
       "Calendly, Acuity, or Booksy",
@@ -57,7 +55,6 @@ const packages = [
     emoji: "☄️",
     price: "Custom Quote",
     tagline: "Advanced functionality and custom web applications built around your business.",
-    popular: false,
     features: [
       "Customer accounts and authentication",
       "Databases and dashboards",
@@ -101,9 +98,8 @@ function smoothScrollTo(id: string, duration = 1050) {
   if (!target) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const headerOffset = 74;
   const start = window.scrollY;
-  const end = target.getBoundingClientRect().top + start - headerOffset;
+  const end = target.getBoundingClientRect().top + start - 72;
   const distance = end - start;
 
   if (reduceMotion) {
@@ -111,12 +107,12 @@ function smoothScrollTo(id: string, duration = 1050) {
     return;
   }
 
-  const started = performance.now();
+  const began = performance.now();
   const ease = (progress: number) =>
     progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
   const frame = (now: number) => {
-    const progress = Math.min((now - started) / duration, 1);
+    const progress = Math.min((now - began) / duration, 1);
     window.scrollTo(0, start + distance * ease(progress));
     if (progress < 1) window.requestAnimationFrame(frame);
   };
@@ -151,28 +147,23 @@ export default function HomePage() {
     document.addEventListener("click", handleAnchorClick);
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      nodes.forEach((node) => node.classList.add("is-visible"));
+      nodes.forEach((node) => node.classList.add("visible"));
       return () => document.removeEventListener("click", handleAnchorClick);
     }
 
     const revealNode = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => {
       if (!entry.isIntersecting) return;
-      (entry.target as HTMLElement).classList.add("is-visible");
+      (entry.target as HTMLElement).classList.add("visible");
       observer.unobserve(entry.target);
     };
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => revealNode(entry, observer));
-      },
-      { threshold: 0.14, rootMargin: "0px 0px -5% 0px" },
+      (entries) => entries.forEach((entry) => revealNode(entry, observer)),
+      { threshold: 0.12, rootMargin: "0px 0px -5%" },
     );
-
     const centeredObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => revealNode(entry, centeredObserver));
-      },
-      { threshold: 0.28, rootMargin: "0px 0px -18% 0px" },
+      (entries) => entries.forEach((entry) => revealNode(entry, centeredObserver)),
+      { threshold: 0.28, rootMargin: "0px 0px -18%" },
     );
 
     standardNodes.forEach((node) => observer.observe(node));
@@ -196,20 +187,14 @@ export default function HomePage() {
     event.preventDefault();
     setLeadState("submitting");
     setLeadMessage("");
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(event.currentTarget);
     const payload = Object.fromEntries(formData.entries());
 
     try {
       const response = await fetch("/api/project-inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...payload,
-          selectedPackage,
-          startedAt: startedAt.current,
-        }),
+        body: JSON.stringify({ ...payload, selectedPackage, startedAt: startedAt.current }),
       });
       const result = (await response.json()) as { message?: string };
       if (!response.ok) throw new Error(result.message || "Please try again.");
@@ -228,195 +213,100 @@ export default function HomePage() {
   };
 
   return (
-    <main className="nova-one-page">
-      <section id="home" className="nova-hero nova-dark-section">
-        <div className="nova-stars" aria-hidden="true" />
-        <div className="nova-orb nova-orb-one" aria-hidden="true" />
-        <div className="nova-orb nova-orb-two" aria-hidden="true" />
-        <div className="container nova-hero-inner">
-          <div className="nova-hero-copy" data-reveal>
-            <span className="nova-eyebrow">Web development for small businesses</span>
-            <h1>
-              A stronger presence.<br />
-              <span>Built to move your business forward.</span>
-            </h1>
-            <p>
-              Professional websites built around what your business actually needs, with packages starting at <span className="nova-price-highlight">$99</span>.
-            </p>
-            <div className="nova-hero-actions">
-              <a className="nova-btn nova-btn-primary" href="#packages">Explore Packages</a>
-              <button className="nova-btn nova-btn-ghost" type="button" onClick={() => launchWith("Not selected")}>Start Your Site</button>
-            </div>
+    <main>
+      <section id="home" className="hero dark">
+        <div className="stars" aria-hidden="true" />
+        <div className="glow glow-one" aria-hidden="true" />
+        <div className="glow glow-two" aria-hidden="true" />
+        <div className="container hero-grid">
+          <div data-reveal>
+            <span className="eyebrow">Web development for small businesses</span>
+            <h1>A stronger presence.<br /><em>Built to move your business forward.</em></h1>
+            <p className="lede">Professional websites built around what your business actually needs, with packages starting at <span className="price-highlight">$99</span>.</p>
+            <div className="actions"><a className="btn primary" href="#packages">Explore Packages</a><a className="btn ghost" href="#get-started">Start Your Site</a></div>
           </div>
         </div>
       </section>
 
-      <section id="why-nova" className="nova-light-section nova-why-section">
-        <div className="container nova-why-grid">
-          <div data-reveal>
-            <span className="nova-section-kicker">Why NOVA Web Services</span>
-            <h2>A professional online presence should feel within reach.</h2>
-          </div>
-          <div className="nova-why-copy" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            <p><span className="nova-inline-brand">NOVA Web Services</span> is a web development business geared toward helping small business owners build a more professional, forward-looking presence online.</p>
+      <section id="why-nova" className="light section-pad">
+        <div className="container split">
+          <div data-reveal><span className="kicker">Why NOVA Web Services</span><h2>A professional online presence should feel within reach.</h2></div>
+          <div className="copy" data-reveal style={{ "--delay": "100ms" } as CSSProperties}>
+            <p><span className="inline-brand">NOVA Web Services</span> is a web development business geared toward helping small business owners build a more professional, forward-looking presence online.</p>
             <p>We believe a strong website shouldn’t be out of reach. Our goal is to provide a more affordable option without sacrificing quality, design, or functionality.</p>
             <p>Whether you need a simple online presence or something more advanced, we focus on building the solution that makes the most sense for your business.</p>
           </div>
         </div>
       </section>
 
-      <section id="work" className="nova-dark-section nova-work-section">
+      <section id="work" className="dark section-pad work">
         <div className="container">
-          <div className="nova-section-heading" data-reveal>
-            <span className="nova-section-kicker nova-section-kicker-dark">Who We’ve Worked With</span>
-            <h2>A look at a business we’ve helped bring online.</h2>
-          </div>
-          <a
-            className="nova-client-card"
-            href="https://mariesminksnbeautybar.com"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Visit Marie's Minks n Beauty Bar website"
-            data-reveal
-            style={{ "--reveal-delay": "100ms" } as CSSProperties}
-          >
-            <div className="nova-client-glow" aria-hidden="true" />
-            <div className="nova-client-browser">
-              <Image
-                className="nova-client-screenshot"
-                src="/images/maries-website-preview-v2.webp"
-                width={1400}
-                height={1050}
-                alt="Screenshot of Marie’s Minks n Beauty Bar website homepage"
-                sizes="(max-width: 760px) 94vw, 1050px"
-                quality={95}
-              />
-            </div>
-            <div className="nova-client-meta">
-              <strong>Marie’s Minks n Beauty Bar</strong>
-              <span>Beauty services website</span>
-            </div>
+          <div className="heading" data-reveal><span className="kicker dark-kicker">Who We’ve Worked With</span><h2>A look at a business we’ve helped bring online.</h2></div>
+          <a className="client-card" href="https://mariesminksnbeautybar.com" target="_blank" rel="noreferrer" data-reveal style={{ "--delay": "100ms" } as CSSProperties}>
+            <div className="client-glow" aria-hidden="true" />
+            <div className="client-browser"><img className="client-screenshot" src="/images/maries-website-preview-v2.webp" alt="Screenshot of Marie’s Minks n Beauty Bar website homepage" /></div>
+            <div className="client-meta"><strong>Marie’s Minks n Beauty Bar</strong><span>Beauty services website</span></div>
           </a>
         </div>
       </section>
 
-      <section id="packages" className="nova-light-section nova-packages-section">
+      <section id="packages" className="light section-pad">
         <div className="container">
-          <div className="nova-section-heading nova-section-heading-centered" data-reveal>
-            <span className="nova-section-kicker">Website Packages</span>
-            <h2>Choose a starting point.</h2>
-            <p>You don’t need to know the technical answer. We’ll confirm the right package after reviewing what your website actually needs.</p>
-          </div>
-          <div className="nova-package-grid">
+          <div className="heading centered" data-reveal><span className="kicker">Website Packages</span><h2>Choose a starting point.</h2><p>You don’t need to know the technical answer. We’ll confirm the right package after reviewing what your website actually needs.</p></div>
+          <div className="card-grid">
             {packages.map((pkg, index) => (
-              <article
-                key={pkg.name}
-                className={`nova-package-card${pkg.popular ? " is-popular" : ""}`}
-                data-reveal="center"
-                style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}
-              >
-                {pkg.popular && <span className="nova-popular-pill">Most Popular</span>}
-                <div className="nova-package-top">
-                  <h3>{pkg.name} {pkg.emoji}</h3>
-                  <div className="nova-package-price">{pkg.price}</div>
-                  <p>{pkg.tagline}</p>
-                </div>
-                <span className="nova-includes-label">Can include</span>
-                <ul>
-                  {pkg.features.map((feature) => <li key={feature}>{feature}</li>)}
-                </ul>
-                <button className="nova-package-button" type="button" onClick={() => launchWith(pkg.name)}>
-                  🚀 Launch with {pkg.name}
-                </button>
+              <article key={pkg.name} className={`price-card${pkg.popular ? " popular" : ""}${pkg.name === "Super Nova" ? " super-card" : ""}`} data-reveal="center" style={{ "--delay": `${index * 110}ms` } as CSSProperties}>
+                {pkg.popular && <span className="popular-pill">Most Popular</span>}
+                <h3>{pkg.name} {pkg.emoji}</h3>
+                <div className={`price${pkg.name === "Super Nova" ? " custom-price" : ""}`}>{pkg.price}</div>
+                <p>{pkg.tagline}</p>
+                <small className="includes">Can include</small>
+                <ul>{pkg.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                <button type="button" onClick={() => launchWith(pkg.name)}>🚀 Launch with {pkg.name}</button>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="maintenance" className="nova-light-section nova-maintenance-section">
+      <section id="maintenance" className="light section-pad">
         <div className="container">
-          <div className="nova-section-heading" data-reveal>
-            <span className="nova-section-kicker">On-Demand Website Updates</span>
-            <h2>Pay for the update you actually need.</h2>
-            <p>Maintenance is available when you request a change or let us know about an issue.</p>
+          <div className="heading" data-reveal><span className="kicker">On-Demand Website Updates</span><h2>Pay for the update you actually need.</h2><p>Maintenance is available when you request a change or let us know about an issue.</p></div>
+          <div className="maintenance-grid">
+            <article className="maintenance-card" data-reveal><span className="level">Routine Update</span><div className="maintenance-price">$9.99</div><p>Simple content and information changes using the website you already have.</p><ul><li>Phone, email, address, hours, text, or pricing</li><li>Services, images, logos, testimonials, or FAQs</li><li>Social, booking, payment, and broken links</li><li>Simple form text or field edits</li></ul><div className="cms-note">Prefer to make routine content updates yourself? Ask about a CMS setup.</div></article>
+            <article className="maintenance-card technical" data-reveal style={{ "--delay": "110ms" } as CSSProperties}><span className="level">Technical Update</span><div className="maintenance-price">$29.99</div><p>Requested changes or fixes that require code, troubleshooting, or technical adjustments.</p><ul><li>Layout, responsive, CSS, or animation changes</li><li>Integration, form, booking, or payment troubleshooting</li><li>Performance and technical SEO</li><li>DNS, domain, SSL, restoration, or code issues</li></ul></article>
+            <article className="maintenance-card" data-reveal style={{ "--delay": "220ms" } as CSSProperties}><span className="level">New Development</span><div className="maintenance-price custom-price">Custom Quote</div><p>For requests that materially change the website.</p><ul><li>E-commerce, booking systems, or memberships</li><li>Accounts, databases, dashboards, or APIs</li><li>Major redesigns and new business workflows</li><li>Advanced custom functionality</li></ul></article>
           </div>
-          <div className="nova-maintenance-grid">
-            <article className="nova-maintenance-card" data-reveal>
-              <span className="nova-maintenance-level">Routine Update</span>
-              <div className="nova-maintenance-price">$9.99</div>
-              <p>Simple content and information changes using the website you already have.</p>
-              <ul>
-                <li>Phone, email, address, hours, text, or pricing</li>
-                <li>Services, images, logos, testimonials, or FAQs</li>
-                <li>Social, booking, payment, and broken links</li>
-                <li>Simple form text or field edits</li>
-              </ul>
-              <div className="nova-cms-note">Prefer to make routine content updates yourself? Ask about a CMS setup.</div>
-            </article>
-            <article className="nova-maintenance-card nova-maintenance-card-technical" data-reveal style={{ "--reveal-delay": "110ms" } as CSSProperties}>
-              <span className="nova-maintenance-level">Technical Update</span>
-              <div className="nova-maintenance-price">$29.99</div>
-              <p>Requested changes or fixes that require code, troubleshooting, or technical adjustments.</p>
-              <ul>
-                <li>Layout, responsive, CSS, or animation changes</li>
-                <li>Integration, form, booking, or payment troubleshooting</li>
-                <li>Performance and technical SEO</li>
-                <li>DNS, domain, SSL, restoration, or code issues</li>
-              </ul>
-            </article>
-            <article className="nova-maintenance-card" data-reveal style={{ "--reveal-delay": "220ms" } as CSSProperties}>
-              <span className="nova-maintenance-level">New Development</span>
-              <div className="nova-maintenance-price nova-maintenance-custom">Custom Quote</div>
-              <p>For requests that materially change the website.</p>
-              <ul>
-                <li>E-commerce, booking systems, or memberships</li>
-                <li>Accounts, databases, dashboards, or APIs</li>
-                <li>Major redesigns and new business workflows</li>
-                <li>Advanced custom functionality</li>
-              </ul>
-            </article>
-          </div>
-          <p className="nova-maintenance-rule" data-reveal>Maintenance pricing is based on the most complex part of the request, not the website package originally purchased.</p>
+          <p className="maintenance-rule" data-reveal>Maintenance pricing is based on the most complex part of the request, not the website package originally purchased.</p>
         </div>
       </section>
 
-      <section id="faq" className="nova-light-section nova-faq-section">
-        <div className="container nova-faq-grid">
+      <section id="faq" className="light section-pad">
+        <div className="container split faq-grid">
+          <div data-reveal><span className="kicker">FAQ</span><h2>A few things you may want to know.</h2></div>
+          <div className="faq-list" data-reveal style={{ "--delay": "100ms" } as CSSProperties}>
+            {faqs.map((item) => <details key={item.q}><summary>{item.q}<span aria-hidden="true">+</span></summary><p>{item.a}</p></details>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="get-started" className="dark section-pad start">
+        <div className="stars" aria-hidden="true" />
+        <div className="container split start-grid">
           <div data-reveal>
-            <span className="nova-section-kicker">FAQ</span>
-            <h2>A few things you may want to know.</h2>
-          </div>
-          <div className="nova-faq-list" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            {faqs.map((item) => (
-              <details key={item.q}>
-                <summary>{item.q}<span aria-hidden="true">+</span></summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="get-started" className="nova-dark-section nova-start-section">
-        <div className="nova-stars" aria-hidden="true" />
-        <div className="container nova-start-grid">
-          <div className="nova-start-copy" data-reveal>
-            <span className="nova-section-kicker nova-section-kicker-dark">Start Your Project</span>
+            <span className="kicker dark-kicker">Start Your Project</span>
             <h2>Tell us who we’re building for.</h2>
-            <p>Start with three quick details, then continue to the full project questionnaire.</p>
-            {selectedPackage !== "Not selected" && (
-              <div className="nova-selected-package">Selected package: <strong>{selectedPackage}</strong></div>
-            )}
+            <p className="start-lede">Start with three quick details, then continue to the full project questionnaire.</p>
+            {selectedPackage !== "Not selected" && <div className="selected-package">Selected package: <strong>{selectedPackage}</strong></div>}
           </div>
-          <form className="nova-lead-form" onSubmit={submitLead} data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
+          <form id="lead-form" className="lead-form" onSubmit={submitLead} data-reveal style={{ "--delay": "100ms" } as CSSProperties}>
             <input type="hidden" name="companyWebsite" value="" readOnly />
-            <label><span>Name</span><input name="name" type="text" autoComplete="name" required maxLength={80} /></label>
-            <label><span>Business Name</span><input name="business" type="text" autoComplete="organization" required maxLength={100} /></label>
-            <label><span>Email Address</span><input name="email" type="email" autoComplete="email" required maxLength={160} /></label>
-            <button type="submit" disabled={leadState === "submitting"}>{leadState === "submitting" ? "Saving…" : "Save & Continue to Questionnaire"}<span aria-hidden="true">↗</span></button>
-            <p className={`nova-lead-status${leadState === "error" ? " is-error" : ""}`} role={leadState === "error" ? "alert" : "status"}>{leadMessage}</p>
-            <small>Your package selection is a best guess, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire. By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
+            <label>Name<input name="name" autoComplete="name" required maxLength={80} /></label>
+            <label>Business Name<input name="business" autoComplete="organization" required maxLength={100} /></label>
+            <label>Email Address<input name="email" type="email" autoComplete="email" required maxLength={160} /></label>
+            <button type="submit" disabled={leadState === "submitting"}>{leadState === "submitting" ? "Saving…" : "Save & Continue to Questionnaire"} <span aria-hidden="true">↗</span></button>
+            {leadMessage && <p className={leadState === "error" ? "is-error" : ""} role={leadState === "error" ? "alert" : "status"}>{leadMessage}</p>}
+            <small>Your package selection is a best guess, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire.</small>
           </form>
         </div>
       </section>
