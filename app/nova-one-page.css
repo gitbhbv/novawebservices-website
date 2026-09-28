@@ -885,3 +885,271 @@
   .nova-package-button,
   .nova-lead-form button { transition: none; }
 }
+
+/* One-page review refinements */
+html { scroll-behavior: auto !important; }
+
+body,
+.site-content-and-footer,
+.nova-one-page {
+  color: #f7f2fa;
+  background: #100a18;
+}
+
+.brand-mark {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(166, 101, 248, 0.48));
+}
+
+.desktop-nav { gap: clamp(15px, 1.75vw, 28px); }
+
+.nova-dark-section,
+.nova-light-section {
+  color: #f7f2fa;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(122, 57, 196, 0.13), transparent 30%),
+    radial-gradient(circle at 9% 82%, rgba(70, 34, 113, 0.11), transparent 34%),
+    #100a18;
+}
+
+.nova-hero {
+  min-height: 760px;
+  padding: 130px 0 82px;
+  background:
+    radial-gradient(circle at 76% 40%, rgba(132, 61, 216, 0.26), transparent 30%),
+    radial-gradient(circle at 17% 75%, rgba(72, 34, 119, 0.24), transparent 36%),
+    #100a18;
+}
+
+.nova-hero-inner {
+  min-height: 535px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.nova-hero-copy { max-width: 1040px; }
+.nova-hero-copy h1 { font-size: clamp(60px, 8vw, 116px); }
+
+.nova-price-highlight {
+  position: relative;
+  display: inline-block;
+  color: #f4e8ff;
+  font-weight: 750;
+  text-shadow: 0 0 20px rgba(184, 123, 255, 0.6);
+}
+
+.nova-price-highlight::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8d49e8, #d6adff);
+  box-shadow: 0 0 12px rgba(180, 113, 255, 0.8);
+}
+
+.nova-why-section,
+.nova-work-section,
+.nova-packages-section,
+.nova-maintenance-section,
+.nova-start-section,
+.nova-faq-section { padding: 96px 0 104px; }
+
+.nova-why-grid { gap: clamp(60px, 9vw, 130px); }
+.nova-why-copy { padding-top: 14px; }
+
+.nova-why-copy p,
+.nova-why-copy p:first-child {
+  margin: 0 0 20px;
+  color: #c8bfce;
+  font-size: 18px;
+  line-height: 1.72;
+  text-indent: 1.65em;
+}
+
+.nova-section-heading { margin-bottom: 40px; }
+
+.nova-section-heading h2,
+.nova-why-grid h2,
+.nova-start-copy h2,
+.nova-faq-grid h2 { color: #f8f4fb; }
+
+.nova-section-heading > p { color: #aaa0b3; }
+
+.nova-work-section {
+  background:
+    radial-gradient(circle at 70% 65%, rgba(126, 63, 209, 0.2), transparent 34%),
+    #100a18;
+}
+
+.nova-client-card { margin-top: 6px; }
+.nova-client-browser { aspect-ratio: 4 / 3; }
+
+.nova-client-screenshot {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.nova-client-meta strong { color: #f4eef7; }
+.nova-client-meta span { color: #9d93a5; }
+
+.nova-package-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.nova-package-card,
+.nova-maintenance-card {
+  color: #f5eff8;
+  border-color: rgba(209, 173, 255, 0.18);
+  background:
+    radial-gradient(circle at 82% 5%, rgba(145, 77, 230, 0.13), transparent 29%),
+    linear-gradient(155deg, rgba(27, 18, 37, 0.98), rgba(17, 12, 24, 0.98));
+  box-shadow:
+    0 22px 60px rgba(3, 2, 7, 0.34),
+    0 0 34px rgba(123, 62, 207, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.nova-package-card {
+  min-height: 650px;
+  padding: 29px;
+}
+
+.nova-package-card:nth-child(4) {
+  border-color: rgba(194, 134, 255, 0.34);
+  background:
+    radial-gradient(circle at 76% 2%, rgba(180, 103, 255, 0.22), transparent 35%),
+    linear-gradient(155deg, #251432, #120d19 74%);
+}
+
+.nova-package-card:hover,
+.nova-maintenance-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(214, 178, 255, 0.62);
+  box-shadow:
+    0 30px 72px rgba(3, 2, 7, 0.44),
+    0 0 52px rgba(148, 78, 235, 0.3),
+    0 0 110px rgba(111, 49, 194, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.nova-package-card.is-popular {
+  border-color: rgba(191, 124, 255, 0.6);
+  background:
+    radial-gradient(circle at 85% 10%, rgba(160, 91, 247, 0.24), transparent 31%),
+    linear-gradient(155deg, #22162c, #140e1b);
+}
+
+.nova-package-top h3,
+.nova-package-price,
+.nova-maintenance-price { color: #fff; }
+
+.nova-package-price {
+  font-size: clamp(38px, 4vw, 54px);
+  line-height: 0.98;
+}
+
+.nova-package-card:nth-child(4) .nova-package-price {
+  max-width: 190px;
+  font-size: clamp(30px, 3vw, 40px);
+  letter-spacing: -0.05em;
+}
+
+.nova-package-top p,
+.nova-package-card.is-popular .nova-package-top p,
+.nova-package-card li,
+.nova-package-card.is-popular li,
+.nova-maintenance-card > p,
+.nova-maintenance-card li { color: #bdb3c5; }
+
+.nova-includes-label,
+.nova-maintenance-level { color: #a991ba; }
+
+.nova-package-button,
+.nova-package-card.is-popular .nova-package-button {
+  color: #fff;
+  border-color: rgba(206, 170, 255, 0.24);
+  background: linear-gradient(135deg, #6f31c8, #8b4de2);
+  box-shadow: 0 12px 28px rgba(91, 39, 164, 0.22);
+}
+
+.nova-package-button:hover,
+.nova-package-card.is-popular .nova-package-button:hover {
+  background: linear-gradient(135deg, #7d3ddb, #9c5af0);
+  box-shadow: 0 16px 34px rgba(111, 48, 199, 0.35), 0 0 24px rgba(150, 84, 236, 0.18);
+}
+
+.nova-maintenance-card { min-height: 490px; }
+
+.nova-cms-note,
+.nova-maintenance-rule {
+  color: #bcb1c4;
+  border-color: rgba(202, 164, 249, 0.18);
+  background: rgba(165, 102, 242, 0.08);
+}
+
+.nova-start-section {
+  background:
+    radial-gradient(circle at 74% 36%, rgba(122, 61, 211, 0.22), transparent 28%),
+    #100a18;
+}
+
+.nova-faq-grid { gap: clamp(60px, 9vw, 130px); }
+.nova-faq-list { border-color: rgba(255, 255, 255, 0.14); }
+.nova-faq-list details { border-color: rgba(255, 255, 255, 0.14); }
+.nova-faq-list summary { color: #f2ebf6; }
+.nova-faq-list details p { color: #aaa0b3; }
+.nova-faq-list summary span { color: #b97cff; }
+
+.site-footer {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(126, 62, 214, 0.14), transparent 30%),
+    #0e0915;
+}
+
+.footer-top { padding: 14px 0 52px; }
+.footer-main { min-height: 0; padding: 42px 0 36px; }
+.footer-bottom { min-height: 62px; }
+
+@media (max-width: 1240px) {
+  .desktop-nav { gap: 16px; }
+  .desktop-nav a { font-size: 11px; }
+  .nova-package-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 900px; margin-inline: auto; }
+}
+
+@media (max-width: 760px) {
+  .nova-hero { min-height: auto; padding: 112px 0 72px; }
+  .nova-hero-inner { min-height: 0; }
+  .nova-why-section,
+  .nova-work-section,
+  .nova-packages-section,
+  .nova-maintenance-section,
+  .nova-start-section,
+  .nova-faq-section { padding: 72px 0 78px; }
+  .nova-section-heading { margin-bottom: 32px; }
+  .nova-package-grid { grid-template-columns: 1fr; }
+  .nova-package-card { min-height: 0; padding: 27px 22px; }
+  .nova-client-browser { border-radius: 16px; }
+  .nova-client-meta { padding-top: 16px; }
+  .footer-top { padding-bottom: 38px; }
+  .footer-main { padding: 34px 0 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova-package-card:hover,
+  .nova-maintenance-card:hover { transform: none; }
+}

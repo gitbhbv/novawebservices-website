@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import MobileMenuBehavior from "./MobileMenuBehavior";
 import "./globals.css";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const navItems = [
-  ["Why NOVA", "/#why-nova"],
+  ["Why NOVA Web Services", "/#why-nova"],
   ["Work", "/#work"],
   ["Packages", "/#packages"],
   ["Maintenance", "/#maintenance"],
@@ -39,7 +40,7 @@ function Brand() {
   return (
     <Link className="brand" href="/" aria-label="NOVA Web Services home">
       <span className="brand-mark" aria-hidden="true">
-        <span className="brand-neutron-star" />
+        <Image src="/images/nova-supernova-logo.svg" alt="" width={31} height={31} priority />
       </span>
       <span className="brand-name">NOVA Web Services</span>
     </Link>
@@ -107,7 +108,7 @@ function SiteFooter() {
           <div className="footer-links">
             <nav aria-label="Footer navigation">
               <span>Explore</span>
-              <Link href="/#why-nova">Why NOVA</Link>
+              <Link href="/#why-nova">Why NOVA Web Services</Link>
               <Link href="/#work">Work</Link>
               <Link href="/#packages">Packages</Link>
               <Link href="/#maintenance">Maintenance</Link>

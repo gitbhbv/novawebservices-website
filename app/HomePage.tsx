@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useRef, useState, type CSSProperties } from "react";
 
@@ -48,6 +49,22 @@ const packages = [
       "CMS integrations",
     ],
   },
+  {
+    name: "Super Nova",
+    price: "Custom Quote",
+    tagline: "Advanced functionality and custom web applications built around your business.",
+    popular: false,
+    features: [
+      "Customer accounts and authentication",
+      "Databases and dashboards",
+      "Memberships and gated content",
+      "Native booking",
+      "Custom payment and order systems",
+      "API-driven features and advanced automation",
+      "File uploads and custom backend logic",
+      "Dynamic web applications",
+    ],
+  },
 ] as const;
 
 const faqs = [
@@ -75,6 +92,34 @@ const faqs = [
 
 type LeadState = "idle" | "submitting" | "error";
 
+function smoothScrollTo(id: string, duration = 1050) {
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const headerOffset = 74;
+  const start = window.scrollY;
+  const end = target.getBoundingClientRect().top + start - headerOffset;
+  const distance = end - start;
+
+  if (reduceMotion) {
+    window.scrollTo(0, end);
+    return;
+  }
+
+  const started = performance.now();
+  const ease = (progress: number) =>
+    progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+  const frame = (now: number) => {
+    const progress = Math.min((now - started) / duration, 1);
+    window.scrollTo(0, start + distance * ease(progress));
+    if (progress < 1) window.requestAnimationFrame(frame);
+  };
+
+  window.requestAnimationFrame(frame);
+}
+
 export default function HomePage() {
   const [selectedPackage, setSelectedPackage] = useState("Not selected");
   const [leadState, setLeadState] = useState<LeadState>("idle");
@@ -85,9 +130,23 @@ export default function HomePage() {
     startedAt.current = Date.now();
 
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const handleAnchorClick = (event: MouseEvent) => {
+      const link = (event.target as Element).closest<HTMLAnchorElement>('a[href*="#"]');
+      if (!link || link.target === "_blank") return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || !url.hash) return;
+      const id = decodeURIComponent(url.hash.slice(1));
+      if (!document.getElementById(id)) return;
+      event.preventDefault();
+      history.replaceState(null, "", `#${id}`);
+      smoothScrollTo(id);
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       nodes.forEach((node) => node.classList.add("is-visible"));
-      return;
+      return () => document.removeEventListener("click", handleAnchorClick);
     }
 
     const observer = new IntersectionObserver(
@@ -103,13 +162,17 @@ export default function HomePage() {
     );
 
     nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("click", handleAnchorClick);
+    };
   }, []);
 
   const launchWith = (packageName: string) => {
     setSelectedPackage(packageName);
     window.setTimeout(() => {
-      document.getElementById("get-started")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", "#get-started");
+      smoothScrollTo("get-started");
     }, 20);
   };
 
@@ -162,23 +225,11 @@ export default function HomePage() {
               <span>Built to move your business forward.</span>
             </h1>
             <p>
-              Professional websites built around what your business actually needs, with packages starting at $99.
+              Professional websites built around what your business actually needs, with packages starting at <span className="nova-price-highlight">$99</span>.
             </p>
             <div className="nova-hero-actions">
               <a className="nova-btn nova-btn-primary" href="#packages">Explore Packages</a>
               <button className="nova-btn nova-btn-ghost" type="button" onClick={() => launchWith("Not selected")}>Start Your Site</button>
-            </div>
-          </div>
-          <div className="nova-hero-visual" data-reveal style={{ "--reveal-delay": "120ms" } as CSSProperties} aria-hidden="true">
-            <div className="nova-browser-shell">
-              <div className="nova-browser-bar"><i /><i /><i /><span>novawebservices.net</span></div>
-              <div className="nova-browser-screen">
-                <div className="nova-browser-star" />
-                <strong>NOVA</strong>
-                <span>DESIGN · BUILD · SUPPORT</span>
-                <b>Professional websites.<br />Made more accessible.</b>
-                <div className="nova-browser-lines"><i /><i /><i /></div>
-              </div>
             </div>
           </div>
         </div>
@@ -214,16 +265,15 @@ export default function HomePage() {
             style={{ "--reveal-delay": "100ms" } as CSSProperties}
           >
             <div className="nova-client-glow" aria-hidden="true" />
-            <div className="nova-client-browser" aria-hidden="true">
-              <div className="nova-client-browser-bar"><i /><i /><i /><span>mariesminksnbeautybar.com</span></div>
-              <div className="nova-client-preview">
-                <div className="nova-client-nav"><b>Marie’s Minks &amp; Beauty Bar</b><span>Services&nbsp;&nbsp; About&nbsp;&nbsp; Book</span></div>
-                <div className="nova-client-preview-body">
-                  <small>BEAUTY · LASHES · EDUCATION</small>
-                  <strong>Beauty,<br />with intention.</strong>
-                  <div className="nova-client-preview-button">BOOK YOUR APPOINTMENT</div>
-                </div>
-              </div>
+            <div className="nova-client-browser">
+              <Image
+                className="nova-client-screenshot"
+                src="/images/maries-website-preview.webp"
+                width={1400}
+                height={1050}
+                alt="Screenshot of Marie’s Minks n Beauty Bar website homepage"
+                sizes="(max-width: 760px) 94vw, 1050px"
+              />
             </div>
             <div className="nova-client-meta">
               <strong>Marie’s Minks n Beauty Bar</strong>
@@ -263,42 +313,6 @@ export default function HomePage() {
                 </button>
               </article>
             ))}
-          </div>
-          <div className="nova-classification" data-reveal>
-            <div>
-              <span className="nova-classification-label">The NOVA standard</span>
-              <h3>The simplest reliable solution wins.</h3>
-              <p>We do not classify a project as custom just because custom development is possible.</p>
-            </div>
-            <div className="nova-classification-options">
-              <article>
-                <span>Usually Ultimate</span>
-                <p>An established third-party service owns the logic and data, and NOVA connects it to your site.</p>
-              </article>
-              <article>
-                <span>Usually Super Nova</span>
-                <p>NOVA builds or manages the application logic, data, workflow, or backend.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="nova-dark-section nova-supernova-section">
-        <div className="nova-supernova-glow" aria-hidden="true" />
-        <div className="container nova-supernova-grid">
-          <div data-reveal>
-            <span className="nova-section-kicker nova-section-kicker-dark">Beyond the standard packages</span>
-            <h2>Super Nova</h2>
-            <p className="nova-supernova-price">Custom Quote</p>
-          </div>
-          <div className="nova-supernova-copy" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            <p>For advanced functionality and custom web applications built around your business.</p>
-            <div className="nova-supernova-tags">
-              <span>Customer accounts</span><span>Login and authentication</span><span>Databases</span><span>Dashboards</span><span>Memberships</span><span>Gated content</span><span>Native booking</span><span>Custom payments and ordering</span><span>API-driven features</span><span>Advanced automation</span><span>File uploads</span><span>Custom backend logic</span><span>Dynamic web applications</span>
-            </div>
-            <p className="nova-supernova-rule">When NOVA builds and manages the application logic or data, the project usually falls under Super Nova.</p>
-            <button className="nova-btn nova-btn-light" type="button" onClick={() => launchWith("Super Nova")}>🚀 Launch with Super Nova</button>
           </div>
         </div>
       </section>

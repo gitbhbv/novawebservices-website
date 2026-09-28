@@ -48,7 +48,6 @@ test("renders the one-page sections in the approved order", async () => {
     'id="why-nova"',
     'id="work"',
     'id="packages"',
-    "Super Nova",
     'id="maintenance"',
     'id="get-started"',
     'id="faq"',
@@ -57,6 +56,9 @@ test("renders the one-page sections in the approved order", async () => {
 
   assert.ok(positions.every((position) => position >= 0), "all one-page sections should render");
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
+  assert.match(html, /Super Nova/);
+  assert.doesNotMatch(html, /The NOVA standard/);
+  assert.doesNotMatch(html, /Beyond the standard packages/);
   assert.match(html, /Prefer to make routine content updates yourself\? Ask about a CMS setup\./);
 });
 
