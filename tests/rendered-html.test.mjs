@@ -43,6 +43,7 @@ test("renders the one-page sections in the approved order", async () => {
     { waitUntil() {}, passThroughOnException() {} },
   );
   const html = await response.text();
+  const renderedText = html.replaceAll("<!-- -->", "");
   const markers = [
     'id="home"',
     'id="why-nova"',
@@ -57,7 +58,11 @@ test("renders the one-page sections in the approved order", async () => {
   assert.ok(positions.every((position) => position >= 0), "all one-page sections should render");
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
   assert.match(html, /Super Nova/);
-  assert.match(html, /Super Nova ☄️/);
+  assert.match(renderedText, /Essential ✨/);
+  assert.match(renderedText, /Pro ⚡/);
+  assert.match(renderedText, /Ultimate 💎/);
+  assert.match(renderedText, /Super Nova ☄️/);
+  assert.match(html, /Made by NOVA Web Services/);
   assert.match(html, /Complete website plus standard third-party integrations\./);
   assert.doesNotMatch(html, /reasonable standard third-party integrations/);
   assert.match(html, /Save &amp; Continue to Questionnaire/);

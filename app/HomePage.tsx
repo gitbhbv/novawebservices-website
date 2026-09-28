@@ -7,6 +7,7 @@ import { FormEvent, useEffect, useRef, useState, type CSSProperties } from "reac
 const packages = [
   {
     name: "Essential",
+    emoji: "✨",
     price: "$99",
     tagline: "Simple one-page professional website.",
     popular: false,
@@ -23,6 +24,7 @@ const packages = [
   },
   {
     name: "Pro",
+    emoji: "⚡",
     price: "$199",
     tagline: "Complete informational multi-page business website.",
     popular: true,
@@ -37,6 +39,7 @@ const packages = [
   },
   {
     name: "Ultimate",
+    emoji: "💎",
     price: "$299",
     tagline: "Complete website plus standard third-party integrations.",
     popular: false,
@@ -51,6 +54,7 @@ const packages = [
   },
   {
     name: "Super Nova",
+    emoji: "☄️",
     price: "Custom Quote",
     tagline: "Advanced functionality and custom web applications built around your business.",
     popular: false,
@@ -300,7 +304,7 @@ export default function HomePage() {
               >
                 {pkg.popular && <span className="nova-popular-pill">Most Popular</span>}
                 <div className="nova-package-top">
-                  <h3>{pkg.name === "Super Nova" ? "Super Nova ☄️" : pkg.name}</h3>
+                  <h3>{pkg.name} {pkg.emoji}</h3>
                   <div className="nova-package-price">{pkg.price}</div>
                   <p>{pkg.tagline}</p>
                 </div>
