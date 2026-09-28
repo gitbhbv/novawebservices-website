@@ -108,11 +108,11 @@
     const reveal = [...document.querySelectorAll('[data-reveal]')];
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) reveal.forEach(el=>el.classList.add('visible'));
     else {
-      const show=(entry,observer,waitForCenter=false)=>{if(!entry.isIntersecting)return;if(waitForCenter&&entry.boundingClientRect.top>innerHeight*.47)return;entry.target.classList.add('visible');observer.unobserve(entry.target)};
+      const show=(entry,observer)=>{if(!entry.isIntersecting)return;entry.target.classList.add('visible');observer.unobserve(entry.target)};
       const standard=reveal.filter(el=>el.dataset.reveal!=='center');
       const centered=reveal.filter(el=>el.dataset.reveal==='center');
       const obs=new IntersectionObserver(entries=>entries.forEach(entry=>show(entry,obs)),{threshold:.12,rootMargin:'0px 0px -5%'});
-      const centerObs=new IntersectionObserver(entries=>entries.forEach(entry=>show(entry,centerObs,true)),{threshold:Array.from({length:21},(_,index)=>index/20),rootMargin:'0px'});
+      const centerObs=new IntersectionObserver(entries=>entries.forEach(entry=>show(entry,centerObs)),{threshold:.28,rootMargin:'0px 0px -18%'});
       standard.forEach(el=>obs.observe(el)); centered.forEach(el=>centerObs.observe(el));
     }
     const smoothScrollTo=(id,duration=1050)=>{const target=document.getElementById(id);if(!target)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const start=scrollY;const end=target.getBoundingClientRect().top+start-72;const distance=end-start;if(reduce){scrollTo(0,end);return}const began=performance.now();const ease=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;const frame=now=>{const progress=Math.min((now-began)/duration,1);scrollTo(0,start+distance*ease(progress));if(progress<1)requestAnimationFrame(frame)};requestAnimationFrame(frame)};
