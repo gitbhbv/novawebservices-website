@@ -155,8 +155,13 @@ export default function HomePage() {
       return () => document.removeEventListener("click", handleAnchorClick);
     }
 
-    const revealNode = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => {
+    const revealNode = (
+      entry: IntersectionObserverEntry,
+      observer: IntersectionObserver,
+      waitForCenter = false,
+    ) => {
       if (!entry.isIntersecting) return;
+      if (waitForCenter && entry.boundingClientRect.top > window.innerHeight * 0.47) return;
       (entry.target as HTMLElement).classList.add("is-visible");
       observer.unobserve(entry.target);
     };
@@ -170,9 +175,12 @@ export default function HomePage() {
 
     const centeredObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => revealNode(entry, centeredObserver));
+        entries.forEach((entry) => revealNode(entry, centeredObserver, true));
       },
-      { threshold: 0.28, rootMargin: "0px 0px -18% 0px" },
+      {
+        threshold: Array.from({ length: 21 }, (_, index) => index / 20),
+        rootMargin: "0px",
+      },
     );
 
     standardNodes.forEach((node) => observer.observe(node));

@@ -1140,9 +1140,15 @@ body,
   .nova-maintenance-section,
   .nova-start-section,
   .nova-faq-section { padding: 72px 0 78px; }
+  .nova-why-section { padding: 60px 0 48px; }
+  .nova-work-section { padding-top: 56px; }
+  .nova-why-grid { gap: 28px; }
+  .nova-why-copy { padding-top: 0; }
   .nova-section-heading { margin-bottom: 32px; }
   .nova-package-grid { grid-template-columns: 1fr; }
   .nova-package-card { min-height: 0; padding: 27px 22px; }
+  .nova-package-card:nth-child(4) .nova-includes-label { margin-top: 14px; }
+  .nova-package-card:nth-child(4) ul { margin-top: 14px; margin-bottom: 24px; }
   .nova-client-browser { border-radius: 16px; }
   .nova-client-meta { padding-top: 16px; }
   .footer-top { padding-bottom: 38px; }
