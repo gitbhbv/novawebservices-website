@@ -76,6 +76,7 @@ test("renders the one-page sections in the approved order", async () => {
   assert.doesNotMatch(html, /nova-supernova-logo/);
   assert.match(html, /Privacy Policy/);
   assert.match(html, /Terms of Service/);
+  assert.match(html, /href="\/favicon\.png"/);
   assert.match(html, /Prefer to make routine content updates yourself\? Ask about a CMS setup\./);
 });
 

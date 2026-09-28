@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   },
   description:
     "Affordable, professional websites for small businesses, with custom design, business integrations, and on-demand website updates.",
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   other: {
     "codex-preview": "development",
   },
