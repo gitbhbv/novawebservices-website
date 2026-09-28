@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
 import MobileMenuBehavior from "./MobileMenuBehavior";
 import "./globals.css";
@@ -39,9 +38,6 @@ const navItems = [
 function Brand() {
   return (
     <Link className="brand" href="/" aria-label="NOVA Web Services home">
-      <span className="brand-mark" aria-hidden="true">
-        <Image src="/images/nova-supernova-logo.svg" alt="" width={31} height={31} priority />
-      </span>
       <span className="brand-name">NOVA Web Services</span>
     </Link>
   );
@@ -88,16 +84,6 @@ function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-shell">
-        <div className="footer-top">
-          <div>
-            <h2>Let&apos;s make your business look as good online as it does in real life.</h2>
-          </div>
-          <Link className="footer-cta" href="/#get-started" aria-label="Start a Project">
-            <strong>Start a Project</strong>
-            <b aria-hidden="true">↗</b>
-          </Link>
-        </div>
-
         <div className="footer-main">
           <div className="footer-brand-block">
             <Brand />
@@ -107,12 +93,14 @@ function SiteFooter() {
           </div>
           <div className="footer-links">
             <nav aria-label="Footer navigation">
-              <span>Explore</span>
+              <span>Menu</span>
+              <Link href="/">Home</Link>
               <Link href="/#why-nova">Why NOVA Web Services</Link>
               <Link href="/#work">Work</Link>
               <Link href="/#packages">Packages</Link>
               <Link href="/#maintenance">Maintenance</Link>
-              <Link href="/#get-started">Start a Project</Link>
+              <Link href="/#faq">FAQ</Link>
+              <Link href="/#get-started">Get Started</Link>
             </nav>
             <nav aria-label="Legal navigation">
               <span>Legal</span>

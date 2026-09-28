@@ -49,8 +49,8 @@ test("renders the one-page sections in the approved order", async () => {
     'id="work"',
     'id="packages"',
     'id="maintenance"',
-    'id="get-started"',
     'id="faq"',
+    'id="get-started"',
   ];
   const positions = markers.map((marker) => html.indexOf(marker));
 
@@ -59,6 +59,9 @@ test("renders the one-page sections in the approved order", async () => {
   assert.match(html, /Super Nova/);
   assert.doesNotMatch(html, /The NOVA standard/);
   assert.doesNotMatch(html, /Beyond the standard packages/);
+  assert.doesNotMatch(html, /nova-supernova-logo/);
+  assert.match(html, /Privacy Policy/);
+  assert.match(html, /Terms of Service/);
   assert.match(html, /Prefer to make routine content updates yourself\? Ask about a CMS setup\./);
 });
 

@@ -364,6 +364,23 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="faq" className="nova-light-section nova-faq-section">
+        <div className="container nova-faq-grid">
+          <div data-reveal>
+            <span className="nova-section-kicker">FAQ</span>
+            <h2>A few things you may want to know.</h2>
+          </div>
+          <div className="nova-faq-list" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
+            {faqs.map((item) => (
+              <details key={item.q}>
+                <summary>{item.q}<span aria-hidden="true">+</span></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="get-started" className="nova-dark-section nova-start-section">
         <div className="nova-stars" aria-hidden="true" />
         <div className="container nova-start-grid">
@@ -384,23 +401,6 @@ export default function HomePage() {
             <p className={`nova-lead-status${leadState === "error" ? " is-error" : ""}`} role={leadState === "error" ? "alert" : "status"}>{leadMessage}</p>
             <small>Your package selection is a preference, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire. By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
           </form>
-        </div>
-      </section>
-
-      <section id="faq" className="nova-light-section nova-faq-section">
-        <div className="container nova-faq-grid">
-          <div data-reveal>
-            <span className="nova-section-kicker">FAQ</span>
-            <h2>A few things you may want to know.</h2>
-          </div>
-          <div className="nova-faq-list" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            {faqs.map((item) => (
-              <details key={item.q}>
-                <summary>{item.q}<span aria-hidden="true">+</span></summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
         </div>
       </section>
     </main>
