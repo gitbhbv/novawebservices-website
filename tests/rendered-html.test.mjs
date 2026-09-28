@@ -64,7 +64,8 @@ test("renders the one-page sections in the approved order", async () => {
   assert.match(renderedText, /Super Nova ☄️/);
   assert.match(html, /Made by NOVA Web Services/);
   assert.match(html, /href="\/#why-nova">About</);
-  assert.match(html, /data-reveal="center"/);
+  assert.match(html, /class="price-card" data-reveal="true"/);
+  assert.doesNotMatch(html, /data-reveal="center"/);
   assert.match(html, /Complete website plus standard third-party integrations\./);
   assert.doesNotMatch(html, /reasonable standard third-party integrations/);
   assert.match(html, /Save &amp; Continue to Questionnaire/);

@@ -255,7 +255,7 @@ export default function HomePage() {
           <div className="heading centered" data-reveal><span className="kicker">Website Packages</span><h2>Choose a starting point.</h2><p>You don’t need to know the technical answer. We’ll confirm the right package after reviewing what your website actually needs.</p></div>
           <div className="card-grid">
             {packages.map((pkg, index) => (
-              <article key={pkg.name} className={`price-card${pkg.popular ? " popular" : ""}${pkg.name === "Super Nova" ? " super-card" : ""}`} data-reveal="center" style={{ "--delay": `${index * 110}ms` } as CSSProperties}>
+              <article key={pkg.name} className={`price-card${pkg.popular ? " popular" : ""}${pkg.name === "Super Nova" ? " super-card" : ""}`} data-reveal style={{ "--delay": `${index * 110}ms` } as CSSProperties}>
                 {pkg.popular && <span className="popular-pill">Most Popular</span>}
                 <h3>{pkg.name} {pkg.emoji}</h3>
                 <div className={`price${pkg.name === "Super Nova" ? " custom-price" : ""}`}>{pkg.price}</div>
