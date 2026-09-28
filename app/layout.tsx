@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 const navItems = [
-  ["Why NOVA Web Services", "/#why-nova"],
+  ["About", "/#why-nova"],
   ["Made by NOVA Web Services", "/#work"],
   ["Packages", "/#packages"],
   ["Maintenance", "/#maintenance"],
@@ -95,7 +95,7 @@ function SiteFooter() {
             <nav aria-label="Footer navigation">
               <span>Menu</span>
               <Link href="/">Home</Link>
-              <Link href="/#why-nova">Why NOVA Web Services</Link>
+              <Link href="/#why-nova">About</Link>
               <Link href="/#work">Made by NOVA Web Services</Link>
               <Link href="/#packages">Packages</Link>
               <Link href="/#maintenance">Maintenance</Link>

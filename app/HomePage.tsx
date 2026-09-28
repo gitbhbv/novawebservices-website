@@ -134,6 +134,8 @@ export default function HomePage() {
     startedAt.current = Date.now();
 
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const standardNodes = nodes.filter((node) => node.dataset.reveal !== "center");
+    const centeredNodes = nodes.filter((node) => node.dataset.reveal === "center");
     const handleAnchorClick = (event: MouseEvent) => {
       const link = (event.target as Element).closest<HTMLAnchorElement>('a[href*="#"]');
       if (!link || link.target === "_blank") return;
@@ -153,21 +155,31 @@ export default function HomePage() {
       return () => document.removeEventListener("click", handleAnchorClick);
     }
 
+    const revealNode = (entry: IntersectionObserverEntry, observer: IntersectionObserver) => {
+      if (!entry.isIntersecting) return;
+      (entry.target as HTMLElement).classList.add("is-visible");
+      observer.unobserve(entry.target);
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
+        entries.forEach((entry) => revealNode(entry, observer));
       },
       { threshold: 0.14, rootMargin: "0px 0px -5% 0px" },
     );
 
-    nodes.forEach((node) => observer.observe(node));
+    const centeredObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => revealNode(entry, centeredObserver));
+      },
+      { threshold: 0.28, rootMargin: "0px 0px -18% 0px" },
+    );
+
+    standardNodes.forEach((node) => observer.observe(node));
+    centeredNodes.forEach((node) => centeredObserver.observe(node));
     return () => {
       observer.disconnect();
+      centeredObserver.disconnect();
       document.removeEventListener("click", handleAnchorClick);
     };
   }, []);
@@ -272,11 +284,12 @@ export default function HomePage() {
             <div className="nova-client-browser">
               <Image
                 className="nova-client-screenshot"
-                src="/images/maries-website-preview.webp"
+                src="/images/maries-website-preview-v2.webp"
                 width={1400}
                 height={1050}
                 alt="Screenshot of Marie’s Minks n Beauty Bar website homepage"
                 sizes="(max-width: 760px) 94vw, 1050px"
+                quality={95}
               />
             </div>
             <div className="nova-client-meta">
@@ -299,7 +312,7 @@ export default function HomePage() {
               <article
                 key={pkg.name}
                 className={`nova-package-card${pkg.popular ? " is-popular" : ""}`}
-                data-reveal
+                data-reveal="center"
                 style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}
               >
                 {pkg.popular && <span className="nova-popular-pill">Most Popular</span>}
