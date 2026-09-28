@@ -1185,3 +1185,37 @@ body,
 
 .site-footer { padding-top: 0; }
 .site-footer .footer-main { border-top: 0; }
+
+.nova-inline-brand {
+  color: #d6b3ff;
+  font-weight: 760;
+  text-decoration: underline;
+  text-decoration-color: rgba(178, 112, 255, 0.8);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-shadow: 0 0 18px rgba(171, 103, 255, 0.45);
+}
+
+.nova-package-card.is-visible {
+  animation: nova-package-arrive 1.05s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+}
+
+@keyframes nova-package-arrive {
+  0% {
+    transform: translateY(16px) scale(0.995);
+    filter: drop-shadow(0 0 0 rgba(148, 78, 235, 0));
+  }
+  58% {
+    transform: translateY(-8px) scale(1.01);
+    filter: drop-shadow(0 0 28px rgba(148, 78, 235, 0.32));
+  }
+  100% {
+    transform: none;
+    filter: drop-shadow(0 0 0 rgba(148, 78, 235, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova-package-card.is-visible { animation: none; }
+}

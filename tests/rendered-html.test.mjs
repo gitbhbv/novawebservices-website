@@ -57,6 +57,12 @@ test("renders the one-page sections in the approved order", async () => {
   assert.ok(positions.every((position) => position >= 0), "all one-page sections should render");
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b));
   assert.match(html, /Super Nova/);
+  assert.match(html, /Super Nova ☄️/);
+  assert.match(html, /Complete website plus standard third-party integrations\./);
+  assert.doesNotMatch(html, /reasonable standard third-party integrations/);
+  assert.match(html, /Save &amp; Continue to Questionnaire/);
+  assert.match(html, /best guess, not a binding choice/);
+  assert.match(html, /For requests that materially change the website\./);
   assert.doesNotMatch(html, /The NOVA standard/);
   assert.doesNotMatch(html, /Beyond the standard packages/);
   assert.doesNotMatch(html, /nova-supernova-logo/);

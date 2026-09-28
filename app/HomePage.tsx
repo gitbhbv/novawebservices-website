@@ -38,7 +38,7 @@ const packages = [
   {
     name: "Ultimate",
     price: "$299",
-    tagline: "Complete website plus reasonable standard third-party integrations.",
+    tagline: "Complete website plus standard third-party integrations.",
     popular: false,
     features: [
       "Tally, Jotform, or Typeform",
@@ -242,7 +242,7 @@ export default function HomePage() {
             <h2>A professional online presence should feel within reach.</h2>
           </div>
           <div className="nova-why-copy" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
-            <p>NOVA Web Services is a web development business geared toward helping small business owners build a more professional, forward-looking presence online.</p>
+            <p><span className="nova-inline-brand">NOVA Web Services</span> is a web development business geared toward helping small business owners build a more professional, forward-looking presence online.</p>
             <p>We believe a strong website shouldn’t be out of reach. Our goal is to provide a more affordable option without sacrificing quality, design, or functionality.</p>
             <p>Whether you need a simple online presence or something more advanced, we focus on building the solution that makes the most sense for your business.</p>
           </div>
@@ -300,7 +300,7 @@ export default function HomePage() {
               >
                 {pkg.popular && <span className="nova-popular-pill">Most Popular</span>}
                 <div className="nova-package-top">
-                  <h3>{pkg.name}</h3>
+                  <h3>{pkg.name === "Super Nova" ? "Super Nova ☄️" : pkg.name}</h3>
                   <div className="nova-package-price">{pkg.price}</div>
                   <p>{pkg.tagline}</p>
                 </div>
@@ -322,7 +322,7 @@ export default function HomePage() {
           <div className="nova-section-heading" data-reveal>
             <span className="nova-section-kicker">On-Demand Website Updates</span>
             <h2>Pay for the update you actually need.</h2>
-            <p>Maintenance is available when you request a change or let us know about an issue. Pricing is based on the complexity of the requested work.</p>
+            <p>Maintenance is available when you request a change or let us know about an issue.</p>
           </div>
           <div className="nova-maintenance-grid">
             <article className="nova-maintenance-card" data-reveal>
@@ -351,7 +351,7 @@ export default function HomePage() {
             <article className="nova-maintenance-card" data-reveal style={{ "--reveal-delay": "220ms" } as CSSProperties}>
               <span className="nova-maintenance-level">New Development</span>
               <div className="nova-maintenance-price nova-maintenance-custom">Custom Quote</div>
-              <p>For requests that materially expand what the website was originally built to do.</p>
+              <p>For requests that materially change the website.</p>
               <ul>
                 <li>E-commerce, booking systems, or memberships</li>
                 <li>Accounts, databases, dashboards, or APIs</li>
@@ -397,9 +397,9 @@ export default function HomePage() {
             <label><span>Name</span><input name="name" type="text" autoComplete="name" required maxLength={80} /></label>
             <label><span>Business Name</span><input name="business" type="text" autoComplete="organization" required maxLength={100} /></label>
             <label><span>Email Address</span><input name="email" type="email" autoComplete="email" required maxLength={160} /></label>
-            <button type="submit" disabled={leadState === "submitting"}>{leadState === "submitting" ? "Saving…" : "Save & continue to questionnaire"}<span aria-hidden="true">↗</span></button>
+            <button type="submit" disabled={leadState === "submitting"}>{leadState === "submitting" ? "Saving…" : "Save & Continue to Questionnaire"}<span aria-hidden="true">↗</span></button>
             <p className={`nova-lead-status${leadState === "error" ? " is-error" : ""}`} role={leadState === "error" ? "alert" : "status"}>{leadMessage}</p>
-            <small>Your package selection is a preference, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire. By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
+            <small>Your package selection is a best guess, not a binding choice. NOVA will confirm the right package after reviewing your questionnaire. By continuing, you agree that NOVA may use these details to respond to your project inquiry. <Link href="/privacy">Privacy Policy</Link></small>
           </form>
         </div>
       </section>
